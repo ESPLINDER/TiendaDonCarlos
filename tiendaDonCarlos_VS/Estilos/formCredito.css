@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+.contenedor {
+    border: solid 1px #000000;
+    background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #0084D6;
+}
+
+:root {
+    --background-color: #0084D6;
+    --background-color2: #ffffff28;
+    --background: #F3F7F9;
+    --boder-color: #c2c2c2;
+    --border-color2: #222222;
+    --background-hover: #def1fd;
+    --background-hover2: #00609c;
+    --secondary-color: #040675;
+    --border-color2: #222222;
+    --text-color: #222222;
+    --text-color2: #ffffff;
+    --icon-color: #040675;
+    --icon-color2: #def1fd;
+}
+
+/*contenido*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--background);
+}
+
+header {
+    z-index: 200;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.45rem 2rem 0.45rem 1.27rem;
+    border-bottom: 1px solid var(--boder-color);
+    position: fixed;
+    background-color: var(--background-color2);
+    top: 0;
+    left: 0;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+
+}
+
+/*menu*/
+.menu-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu {
+    width: 1.5rem;
+    height: 37%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu div {
+    width: 100%;
+    height: 0.15rem;
+    background-color: var(--text-color);
+}
+
+/*brand*/
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.brand .logo {
+    text-align: center;
+    font-size: 25px;
+    color: var(--icon-color);
+}
+
+.brand .name {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text-color);
+}
+
+/*parte derecha navbar*/
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+}
+.right a{
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.2rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.5s ease;
+}
+.right a:hover{
+    background-color: var(--background-hover2);
+}
+
+.right i {
+    display: block;
+    text-align: center;
+    width: 1.5rem;
+    height: 1.7rem;
+    font-size: 20px;
+    color: var(--text-color2);
+}
+
+.names {
+    font-size: 15px;
+    text-align: center;
+    color: var(--text-color2);
+}
+
+.right .user {
+    width: 2.1rem;
+    border-radius: 50%;
+    border: 2px solid var(--border-color2);
+}
+.sidebar{
+    margin-top: 2.5rem;
+    width: 13.75rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 1rem 0;
+    border-right: var(--boder-color);
+    overflow-y: auto;
+    background-color: var(--background-color);
+}
+.sidebar li{
+    display: list-item;
+    list-style-type: none;
+}
+.sidebar a{
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    padding: 0.5rem 1.7rem;
+    margin: 0 0.5rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.sidebar a:hover{
+    background-color: var(--background-hover2);
+}
+.sidebar i{
+    text-align: center;
+    width: 2rem;
+    font-size: 20px;
+    color: 1px solid var(--icon-color2);
+}
+
+.dropdown {
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    background: white;
+    width: 300px;
+    z-index: 1000;
+}
+
+.dropdown div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown div:hover {
+    background-color: #f0f0f0;
+}
+
+#crear-nuevo {
+    background-color: #70B8E9;
+    font-weight: bold;
+}
+
+.tabla th {
+    background-color: #DDDDDD;
+}
+
+.pagoTotal {
+    border-top: solid 1px #DDDDDD;
+    font-size: 95%;
+}
+
+.total {
+    font-size: 150%;
+}
+
+#btnCalendario {
+    border-color: #DDDDDD;
+}
+
+.ceparador {
+    border-top: solid 1px #DDDDDD;
+    border-bottom: solid 1px #DDDDDD;
+}
+
+.cancelar {
+    background-color: #4DBAFF;
+}
+.guardar {
+    background-color: #72C92A;
+}

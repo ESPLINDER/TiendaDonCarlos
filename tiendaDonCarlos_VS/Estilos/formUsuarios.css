@@ -1,0 +1,33 @@
+body {
+    background-image: url('../recursos/donJorge.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  
+  /* Overlay semitransparente para mejorar la legibilidad */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: -1;
+  }
+  
+  /* Estilos para la tarjeta del formulario */
+  .card {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+  
+  /* Espaciado para los grupos de formulario */
+  .form-group {
+    margin-bottom: 1rem;
+  }
