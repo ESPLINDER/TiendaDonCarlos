@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+    color: #0084D6;
+}
+
+:root {
+    --background-color: #0084D6;
+    --background-color2: #009DFF;
+    --border-color: #c2c2c2;
+    --border-color2: #0084D6;
+    --border-color3: #00609c;
+    --background-hover: #def1fd;
+    --background-hover2: #00609c;
+    --secondary-color: #040675;
+    --text-color: #222222;
+    --text-color2: #ffffff;
+    --icon-color: #040675;
+    --icon-color2: #def1fd;
+}
+
+.dropdown {
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    background: white;
+    width: 300px;
+    z-index: 1000;
+}
+
+.dropdown div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown div:hover {
+    background-color: #f0f0f0;
+}
+
+#crear-nuevo {
+    background-color: #70B8E9;
+    font-weight: bold;
+}
+
+.tabla th {
+    background-color: #DDDDDD;
+}
+
+.pagoTotal {
+    border-top: solid 1px #DDDDDD;
+    font-size: 95%;
+}
+
+.total {
+    font-size: 150%;
+}
+
+#btnCalendario {
+    border-color: #DDDDDD;
+}
+
+.ceparador {
+    border-top: solid 1px #DDDDDD;
+    border-bottom: solid 1px #DDDDDD;
+}
+
+.cancelar {
+    background-color: #4DBAFF;
+}
+.guardar {
+    background-color: #72C92A;
+}

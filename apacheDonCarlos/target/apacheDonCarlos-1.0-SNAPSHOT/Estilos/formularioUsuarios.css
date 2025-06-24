@@ -1,0 +1,12 @@
+  /* Estilos para la tarjeta del formulario */
+  .card {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+  
+  /* Espaciado para los grupos de formulario */
+  .form-group {
+    margin-bottom: 1rem;
+  }

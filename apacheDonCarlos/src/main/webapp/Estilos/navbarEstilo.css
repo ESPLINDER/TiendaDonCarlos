@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+:root {
+    --background-color: #0084D6;
+    --background-color2: #009DFF;
+    --border-color: #c2c2c2;
+    --border-color2: #0084D6;
+    --border-color3: #00609c;
+    --background-hover: #def1fd;
+    --background-hover2: #00609c;
+    --secondary-color: #040675;
+    --text-color: #222222;
+    --text-color2: #ffffff;
+    --icon-color: #040675;
+    --icon-color2: #def1fd;
+}
+
+/*contenido*/
+* {
+    font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+    background-color: white;
+    background-size: auto;
+    background-position: center;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.45rem 2rem 0.45rem 1.27rem;
+    border-bottom: 1px solid var(--border-color3);
+    background-color: var(--background-color2);
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+
+}
+
+/*brand*/
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.brand .logo {
+    text-align: center;
+    font-size: 25px;
+    color: var(--icon-color);
+}
+
+.brand .name {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text-color);
+}
+
+/*parte derecha navbar*/
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+}
+.right a{
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.2rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.5s ease;
+}
+.right a:hover{
+    background-color: var(--background-hover2);
+}
+
+.right i {
+    display: block;
+    text-align: center;
+    width: 1.5rem;
+    height: 1.7rem;
+    font-size: 20px;
+    color: var(--text-color2);
+}
+
+.names {
+    font-size: 15px;
+    text-align: center;
+    color: var(--text-color2);
+}
+
+.right .user {
+    width: 2.1rem;
+    border-radius: 50%;
+    border: 2px solid var(--border-color2);
+}
+.sidebar{
+    width: 13.75rem;
+    padding: 1rem 0;
+    height: 100vh;
+    position: fixed;
+    border-top: 2px solid var(--border-color3);
+    background-color: var(--background-color);
+}
+.sidebar li{
+    display: list-item;
+    list-style-type: none;
+}
+.sidebar a{
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    padding: 0.5rem 1.7rem;
+    margin: 0 0.5rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.sidebar a:hover{
+    background-color: var(--background-hover2);
+}
+.sidebar i{
+    text-align: center;
+    width: 2rem;
+    font-size: 20px;
+    color: 1px solid var(--icon-color2);
+}
