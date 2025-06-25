@@ -1,3 +1,4 @@
+
 <%
     Modelo.Usuario usuario = (Modelo.Usuario) session.getAttribute("usuario");
     if (usuario != null) {
@@ -17,7 +18,7 @@
             <i class="bi bi-plus"></i>
             <span class="names">Cliente</span>
         </a>
-        <a href="./UsuarioController?menu=accion&accion=Agregar">
+        <a href="<%= contextPath %>/UsuarioController?menu=accion&accion=Agregar">
             <i class="bi bi-plus"></i>
             <span class="names">Usuario</span>
         </a>
@@ -25,14 +26,14 @@
             <i class="bi bi-plus"></i>
             <span class="names">Producto</span>
         </a>
-        <img src="recursos/admin.jpg" alt="usuario" class="user">
+        <img src="<%= contextPath %>/recursos/admin.jpg" alt="usuario" class="user">
         <span class="names"><%= usuario.getNomUsuario()%> | <%= usuario.getRolUsuario()%></span>
     </div>
 </header>
 <div class="sidebar">
     <ul>
         <li>
-            <a href="./UsuarioController?menu=Usuarios&accion=Listar">
+            <a href="<%= contextPath %>/UsuarioController?menu=Usuarios&accion=Listar">
                 <i class="bi bi-people"></i>
                 <span class="names">Usuarios</span>
             </a>

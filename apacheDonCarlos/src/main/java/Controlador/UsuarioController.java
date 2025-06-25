@@ -51,7 +51,7 @@ public class UsuarioController extends HttpServlet {
         String accion = request.getParameter("accion");
 
         if (menu.equals("Administrador")) {
-            request.getRequestDispatcher("IndexAdmin.jsp");
+            request.getRequestDispatcher("/vistas/admin/IndexAdmin.jsp");
 
         }
         if (menu.equals("Usuarios")) {
@@ -59,7 +59,7 @@ public class UsuarioController extends HttpServlet {
                 case "Listar":
                     List listaUsuarios = usu_dao.listar();
                     request.setAttribute("lista_usu", listaUsuarios);
-                    request.getRequestDispatcher("vistas/ListaUsuariosAdmin.jsp").forward(request, response);
+                    request.getRequestDispatcher("vistas/admin/ListaUsuariosAdmin.jsp").forward(request, response);
                     break;
                 case "Agregar":
                     this.AgregarUsuario(request, response);

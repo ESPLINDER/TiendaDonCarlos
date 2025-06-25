@@ -33,12 +33,23 @@ public class FiltroSesion implements Filter {
         HttpSession sesion = req.getSession(false);
         boolean logueado = (sesion != null && sesion.getAttribute("usuario") != null);
 
-        if (logueado || esLogin || esRecursoEstatico) {
-            // 👇 Cabeceras para evitar que el navegador almacene la página
+        if (logueado) {
+            // Control por rol
+            Modelo.Usuario usuario = (Modelo.Usuario) sesion.getAttribute("usuario");
+
+            if (path.contains("/vistas/admin/") && !usuario.getRolUsuario().equals("Administrador")) {
+                res.sendRedirect(req.getContextPath() + "/accesoDenegado.jsp");
+                return;
+            }
+
+            // Cabeceras para evitar caché
             res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
             res.setHeader("Pragma", "no-cache"); // HTTP 1.0
             res.setDateHeader("Expires", 0); // Proxies
 
+            chain.doFilter(request, response);
+
+        } else if (esLogin || esRecursoEstatico) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect(req.getContextPath() + "/index.jsp");
