@@ -16,7 +16,7 @@
     </head>
     <body>
         <%--Aqui Insertamos el dasboard--%>
-        <%@ include file="../../plantillas/DashAdminHtml.jsp" %>
+        <%@ include file="../../plantillas/DashAdminController.jsp" %>
         
         <%--Aqui empieza el contenido--%>
         <div class="row contenido justify-content-center">

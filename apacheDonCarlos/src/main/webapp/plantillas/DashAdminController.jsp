@@ -39,7 +39,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<%= contextPath %>/PagosController?menu=Pagos&accion=Listar">
                 <i class="bi bi-cash-stack"></i>
                 <span class="names">Pagos</span>
             </a>

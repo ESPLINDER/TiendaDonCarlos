@@ -22,7 +22,7 @@
         <%--Aqui empieza el contenido--%>
         <div class="contenido">
             <h1>Lista de Usuarios</h1>
-            <button class="boton-agregar"><a class="nav-link active" href="<%= contextPath %>/vistas/formAgregarUsuario.jsp">Agregar</a></button>
+            <button class="boton-agregar"><a class="nav-link active" href="<%= contextPath %>/vistas/admin/formAgregarUsuario.jsp">Agregar</a></button>
             <div class="tabla">
                 <table>
                     <thead>

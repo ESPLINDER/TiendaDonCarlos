@@ -1,4 +1,5 @@
 Controlador\CerrarSesion.class
+Modelo\PagosDao.class
 com\mycompany\apachedoncarlos\resources\JakartaEE10Resource.class
 Modelo\Usuario.class
 Config\Conexion.class
@@ -8,5 +9,6 @@ Controlador\UsuarioController.class
 Controlador\ValidarUsuario.class
 Modelo\Cliente.class
 com\mycompany\apachedoncarlos\JakartaRestConfiguration.class
+Controlador\PagosController.class
 Modelo\Producto.class
 Modelo\Pagos.class
