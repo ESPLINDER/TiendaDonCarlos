@@ -4,6 +4,13 @@
     String contextPath = request.getContextPath();
 
     List<Modelo.Pagos> lista_pagos = (List<Modelo.Pagos>) request.getAttribute("lista_Pagos");
+
+    String mensajeExito = (String) session.getAttribute("mensajeExito");
+    String mensajeError = (String) session.getAttribute("mensajeError");
+
+    // Eliminar después de mostrar para que no reaparezca
+    session.removeAttribute("mensajeExito");
+    session.removeAttribute("mensajeError");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,17 +20,36 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js"></script>
         <link rel="Stylesheet" href="<%= contextPath%>/Estilos/contenido.css">
         <link rel="stylesheet" href="<%= contextPath%>/Estilos/navbarEstilo.css">
     </head>
     <body>
+        <% if (mensajeExito != null) {%>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '<%= mensajeExito%>'
+            });
+        </script>
+        <% } else if (mensajeError != null) {%>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '<%= mensajeError%>'
+            });
+        </script>
+        <% }%>
         <%--Aqui Insertamos el dasboard--%>
         <%@ include file="../../plantillas/DashAdminController.jsp" %>
 
         <%--Aqui empieza el contenido--%>
         <div class="contenido">
             <h1>Lista de Pagos</h1>
-            <button class="boton-agregar"><a class="nav-link active" href="<%= contextPath %>/vistas/admin/formCrearPago.jsp">Crear Pago</a></button>
+            <button class="boton-agregar"><a class="nav-link active" href="<%= contextPath%>/vistas/admin/formCrearPago.jsp">Crear Pago</a></button>
             <div class="tabla">
                 <table>
                     <thead>
@@ -115,13 +141,13 @@
         <% if (PagoEditar != null) {
                 System.out.println("el objeto no esta vacio");%>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var modalElement = document.getElementById('editarPago');
-                if (modalElement) {
-                    var modal = new bootstrap.Modal(modalElement);
-                    modal.show();
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalElement = document.getElementById('editarPago');
+            if (modalElement) {
+                var modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            }
+        });
         </script>
         <%} else {
             System.out.println("el objeto esta vacio");

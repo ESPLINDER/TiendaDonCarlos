@@ -82,7 +82,7 @@ public class PagosController extends HttpServlet {
             int montoPago = Integer.parseInt(request.getParameter("montoPago"));
             String tipoPago = request.getParameter("tipoPago");
             LocalDate fechaPago = LocalDate.now();
-          
+
             pago.setFkIdCredito(fkIdCredito);
             pago.setMontoPago(montoPago);
             pago.setTipoPago(tipoPago);
@@ -97,7 +97,7 @@ public class PagosController extends HttpServlet {
             System.out.println("Error al agregar Pago");
         }
     }
-    
+
     protected void EditarPago(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             doc = Integer.parseInt(request.getParameter("idPago")); //variable para capturar el id de del usuario a editar
@@ -119,13 +119,22 @@ public class PagosController extends HttpServlet {
             pago.setMontoPago(montoPago);
             pago.setTipoPago(tipoPago);
 
-            pagoDao.Actualizar(pago);
+            int filasActualizadas = pagoDao.Actualizar(pago);
+            boolean actualizado = filasActualizadas > 0;
+
+            HttpSession session = request.getSession();
+
+            if (actualizado) {
+                session.setAttribute("mensajeExito", "¡Pago actualizado correctamente!");
+            } else {
+                session.setAttribute("mensajeError", "No se ha podido actualizar ningún pago.");
+            }
             request.getRequestDispatcher("PagosController?menu=Pagos&accion=Listar").forward(request, response);
         } catch (ServletException | IOException | NumberFormatException e) {
             System.out.println("Error al actualizar Pago");
         }
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Este es el servlet de pagos";
