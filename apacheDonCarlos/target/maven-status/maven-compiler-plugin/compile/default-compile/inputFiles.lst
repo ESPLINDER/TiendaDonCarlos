@@ -1,4 +1,5 @@
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\FiltroSesion.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\ClienteController.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\ValidarUsuario.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Usuario.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\UsuarioController.java
@@ -7,6 +8,7 @@ C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\PagosDao.ja
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Producto.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\com\mycompany\apachedoncarlos\resources\JakartaEE10Resource.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Pagos.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\ClienteDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\UsuarioDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CerrarSesion.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\PagosController.java

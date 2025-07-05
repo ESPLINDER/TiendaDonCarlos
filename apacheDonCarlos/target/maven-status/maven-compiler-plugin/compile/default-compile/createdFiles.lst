@@ -1,6 +1,8 @@
 Controlador\CerrarSesion.class
+Controlador\ClienteController.class
 Modelo\PagosDao.class
 com\mycompany\apachedoncarlos\resources\JakartaEE10Resource.class
+Modelo\ClienteDao.class
 Modelo\Usuario.class
 Config\Conexion.class
 Controlador\FiltroSesion.class

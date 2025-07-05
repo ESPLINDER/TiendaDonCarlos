@@ -7,23 +7,25 @@
     </div>
     <div class="right">
         <a href="index.jsp">
-            <span class="names">Cerrar Sesion</span>
+            <span class="names">Cerrar Sesión</span>
         </a>
-        <a href="#">
+        <a href="ClienteController?menu=Clientes&accion=Listar">
             <i class="bi bi-plus"></i>
             <span class="names">Cliente</span>
         </a>
-        <a href="UsuarioController?menu=accion&accion=Agregar">
+        <a href="UsuarioController?menu=Usuarios&accion=Agregar">
             <i class="bi bi-plus"></i>
             <span class="names">Usuario</span>
-            <a href="#">
-                <i class="bi bi-plus"></i>
-                <span class="names">Producto</span>
-            </a>
-            <img src="../recursos/admin.jpg" alt="usuario" class="user">
-            <span class="names">Administrador</span>
+        </a>
+        <a href="#">
+            <i class="bi bi-plus"></i>
+            <span class="names">Producto</span>
+        </a>
+        <img src="../recursos/admin.jpg" alt="usuario" class="user">
+        <span class="names">Administrador</span>
     </div>
 </header>
+
 <div class="sidebar">
     <ul>
         <li>
@@ -41,7 +43,7 @@
         <li>
             <a href="#">
                 <i class="bi bi-coin"></i>
-                <span class="names">Creditos</span>
+                <span class="names">Créditos</span>
             </a>
         </li>
         <li>
@@ -51,16 +53,15 @@
             </a>
         </li>
         <li>
-        <body>
-            <a href="#">
-                <i class="bi bi-people"></i>
-                <span class="names">clientes</span>
+            <a href="ClienteController?menu=Clientes&accion=Listar">
+                <i class="bi bi-person"></i>
+                <span class="names">Clientes</span>
             </a>
-            </li>
+        </li>
         <li>
             <a href="#">
                 <i class="bi bi-exclamation-circle"></i>
-                <span class="names">reportes</span>
+                <span class="names">Reportes</span>
             </a>
         </li>
     </ul>

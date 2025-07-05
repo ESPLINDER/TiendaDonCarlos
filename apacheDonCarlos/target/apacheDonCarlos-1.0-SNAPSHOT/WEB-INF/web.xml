@@ -12,6 +12,10 @@
         <servlet-name>PagosController</servlet-name>
         <servlet-class>Controlador.PagosController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClienteController</servlet-name>
+        <servlet-class>Controlador.ClienteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FiltroSesion</servlet-name>
         <url-pattern>/FiltroSesion</url-pattern>
