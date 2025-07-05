@@ -3,7 +3,6 @@ package Controlador;
 import Modelo.UsuarioDao;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,24 +21,7 @@ public class ValidarUsuario extends HttpServlet {
     
     UsuarioDao u_dao = new UsuarioDao();
     Usuario usu = new Usuario();
-      
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ValidarUsuario</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ValidarUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,6 +32,7 @@ public class ValidarUsuario extends HttpServlet {
             //al hacer click en el boton con value ingresar
             String user = request.getParameter("emaUsuario"); //name del formulario campo usuario
             String pass = request.getParameter("passUsuario"); // campo contrasena
+            System.out.println("user: "+user+" pass: "+pass);
             try {
                 usu = u_dao.Validar(user, pass);
             } catch (ClassNotFoundException ex) {
@@ -67,6 +50,7 @@ public class ValidarUsuario extends HttpServlet {
                     request.getRequestDispatcher("vistas/empleado/IndexEmpleado.jsp").forward(request, response);
                 }
             } else {
+                System.out.println("Contraseña o usuario incorrectos");
                 request.setAttribute("error", "Usuario o contraseña incorrectos");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }

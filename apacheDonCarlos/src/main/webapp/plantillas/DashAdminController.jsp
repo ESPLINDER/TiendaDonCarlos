@@ -3,6 +3,7 @@
     Modelo.Usuario usuario = (Modelo.Usuario) session.getAttribute("usuario");
     if (usuario != null) {
 %>
+<link rel="stylesheet" href="<%= contextPath %>/Estilos/navbarEstilo.css">
 <header>
     <div class="left">
         <div class="brand">
@@ -45,7 +46,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<%= contextPath %>/CrditoController?accion=PrepararCredito">
                 <i class="bi bi-coin"></i>
                 <span class="names">Creditos</span>
             </a>
