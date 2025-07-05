@@ -10,7 +10,7 @@ public class Cliente {
     private String emaCliente;
     private String domCliente;
     private int telCliente;
-    private String[] catCredito = {"A", "B", "C"};
+    private String catCredito;
     private int limCredito;
 
     public Cliente() {
@@ -24,7 +24,7 @@ public class Cliente {
         this.emaCliente = emaCliente;
         this.domCliente = domCliente;
         this.telCliente = telCliente;
-        this.catCredito = new String[] {catCredito};
+        this.catCredito = catCredito;
         this.limCredito = limCredito;
     }
 
@@ -56,7 +56,7 @@ public class Cliente {
         return telCliente;
     }
 
-    public String[] getCatCredito() {
+    public String getCatCredito() {
         return catCredito;
     }
 
@@ -92,7 +92,7 @@ public class Cliente {
         this.telCliente = telCliente;
     }
 
-    public void setCatCredito(String[] catCredito) {
+    public void setCatCredito(String catCredito) {
         this.catCredito = catCredito;
     }
 
