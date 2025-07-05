@@ -2,6 +2,7 @@ Controlador\CerrarSesion.class
 Controlador\ClienteController.class
 Modelo\PagosDao.class
 com\mycompany\apachedoncarlos\resources\JakartaEE10Resource.class
+Modelo\Detalle_CreditoDao.class
 Modelo\ClienteDao.class
 Modelo\Usuario.class
 Config\Conexion.class
@@ -9,8 +10,13 @@ Controlador\FiltroSesion.class
 Modelo\UsuarioDao.class
 Controlador\UsuarioController.class
 Controlador\ValidarUsuario.class
+Modelo\CreditoDao.class
+Controlador\CreditoController.class
 Modelo\Cliente.class
 com\mycompany\apachedoncarlos\JakartaRestConfiguration.class
 Controlador\PagosController.class
+Modelo\Credito.class
 Modelo\Producto.class
 Modelo\Pagos.class
+Modelo\Detalle_Credito.class
+Modelo\ProductoDao.class

@@ -4,6 +4,7 @@ import Config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author William
@@ -33,5 +34,25 @@ public class CreditoDao {
         }
 
         return ultimoId;
+    }
+    
+    public void Guardar(Credito credito){
+        String sql = "INSERT INTO credito(idCredito, fk_idCliente, fk_idUsuario, montoCredito, emiCredito, venCredito) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, credito.getIdCredito());
+            ps.setInt(2, credito.getFk_idCliente());
+            ps.setInt(3, credito.getFk_idUsuario());
+            ps.setInt(4, credito.getMontoCredito());
+            ps.setDate(5, java.sql.Date.valueOf(credito.getEmiCredito()));
+            ps.setDate(6, java.sql.Date.valueOf(credito.getVenCredito()));
+            
+            System.out.println("Consulta guardar credito: "+ps);
+            ps.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error al guardar credito: " + e.getMessage());
+        }
     }
 }

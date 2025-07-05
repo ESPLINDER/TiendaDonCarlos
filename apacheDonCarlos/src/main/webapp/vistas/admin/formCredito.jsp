@@ -30,11 +30,11 @@
         <div class="row my-5">
             <div class="contenedor col-md-6 mx-auto px-3 py-5">
                 <h1>Nueva Factura Credito</h1>
-                <form>
+                <form action="<%= contextPath%>/CreditoController">
                     <div class="form-label row p-3 px-5">
                         <div class="col-sm-5 mb-3 clientes">
                             <label for="idCliente">Cliente</label>
-                            <select class="form-control" id="nomCliente" onchange="TraerCliente()">
+                            <select name="fk_idCliente" class="form-control" id="Cliente" onchange="TraerCliente()">
                                 <option value="<%=selectClienteIdValue%>"><%=selectClienteValue%></option>
                                 <%for (Modelo.Cliente c : listaClientes) {%>
                                 <option value="<%= c.getIdCliente()%>"><%=c.getNomCliente() + " " + c.getApeCliente()%></option>
@@ -47,16 +47,6 @@
                             <div class="form-control-plaintext" id="numeroFacturaVisible"><%=idCredito%> (Numeración Automática)
                             </div>
                         </div>
-
-                        <div class="col-sm-5 mb-3">
-                            <label for="contactoCliente">Contacto</label>
-                            <select class="form-control" id="emaCliente" onchange="TraerCliente()">
-                                <option value="<%=selectClienteIdValue%>"><%=selectContactoValue%></option>
-                                <%for (Modelo.Cliente c : listaClientes) {%>
-                                <option value="<%= c.getIdCliente()%>"><%=c.getEmaCliente()%></option>
-                                <%}%>
-                            </select>
-                        </div>
                     </div>
 
                     <div class="table-container mt-5">
@@ -64,123 +54,68 @@
                             <thead class="tabla">
                                 <tr>
                                     <th>#</th>
-                                    <th>Producto</th>
                                     <th>Descripción</th>
                                     <th>Cant</th>
                                     <th>Valor Unitario</th>
                                     <th>Valor Total</th>
-                                    <th>- vacio -</th>
                                 </tr>
                             </thead>
                             <tbody id="tabla-productos">
-                                <tr id="fila1">
+                                <tr>
                                     <td class="row-number">1</td>
-                                    <td style="position: relative;">
-                                        <select name="producto" id="idProducto" class="form-control">
-                                            <option value="0">Seleccionar producto</option>
-                                            <option value="arroz">0001</option>
-                                            <option value="leche">0002</option>
-                                            <option value="queso">0003</option>
-                                            <option value="pan">0004</option>
+                                    <td>
+                                        <select name="fk_idProducto" class="form-control select-producto" onchange="actualizarValorUnitario(this)">
+                                            <option value="0" data-precio="0">Seleccionar producto</option>
+                                            <% for (Modelo.Producto p : listaProductos) {%>
+                                            <option value="<%= p.getIdProducto()%>" data-precio="<%= p.getValProducto()%>">
+                                                <%= p.getNomProducto()%>
+                                            </option>
+                                            <% }%>
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="producto" id="nomProducto" class="form-control">
-                                            <option value="0">Seleccionar producto</option>
-                                            <option value="arroz">Arroz</option>
-                                            <option value="leche">Leche</option>
-                                            <option value="queso">Queso</option>
-                                            <option value="pan">Pan</option>
-                                        </select>
+                                        <input name="cantidad" type="number" class="form-control input-cantidad" min="1" oninput="actualizarTotal(this)">
                                     </td>
                                     <td>
-                                        <input type="number" class="form-control" id="cantProducto" value="1" min="1"
-                                               readonly>
+                                        <input type="number" class="form-control input-valor-unitario" value="0" readonly>
                                     </td>
                                     <td>
-                                        <input type="number" class="form-control" id="valProducto" value="1000" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control" id="totalProducto" value="1000" readonly>
-                                    </td>
-                                    <td>
-                                        <button class="btn-remove">🗑️</button>
-                                    </td>
-                                </tr>
-                                <tr id="fila2">
-                                    <td class="row-number">2</td>
-                                    <td style="position: relative;">
-                                        <select name="producto" id="idProducto" class="form-control">
-                                            <option value="0">Seleccionar producto</option>
-                                            <option value="arroz">0001</option>
-                                            <option value="leche">0002</option>
-                                            <option value="queso">0003</option>
-                                            <option value="pan">0004</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="producto" id="nomProducto" class="form-control">
-                                            <option value="0">Seleccionar producto</option>
-                                            <option value="arroz">Arroz</option>
-                                            <option value="leche">Leche</option>
-                                            <option value="queso">Queso</option>
-                                            <option value="pan">Pan</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control" id="cantProducto" value="7" min="1"
-                                               readonly>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control" id="valProducto" value="2000" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control" id="totalProducto" value="14000" readonly>
-                                    </td>
-                                    <td>
-                                        <button class="btn-remove">🗑️</button>
+                                        <input name="totalPrecio" type="number" class="form-control input-total" value="0" readonly>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
 
-                    <button class="btn btn-success mt-1">
-                        Agregar Producto
-                    </button>
+                        <!-- Botón para agregar fila -->
+                        <button type="button" class="btn btn-success mt-2" onclick="agregarFila()">Agregar producto</button>
+                    </div>
                     <div class="mx-auto row pagoTotal mt-3 mb-3">
                         <div class="col-md-7">
                             <div class="py-3">
                                 <h4>Forma de pago</h4>
                             </div>
                             <div class="py-2 row ceparador">
-                                <div class="col-md-4 text-end my-auto"><label for="venCredito">Vencimiento del
-                                        credito</label></div>
-                                <div class="col-md-2">
-                                    <select name="plazo" id="venCredito" class="form-select">
-                                        <option value="Hoy">Hoy</option>
-                                        <option value="a 15 dias">a 15 dias</option>
-                                        <option value="a 30 dias">a 30 dias</option>
-                                        <option value="a 60 dias">a 60 dias</option>
-                                        <option value="a 90 dias">a 90 dias</option>
-                                    </select>
-                                </div>
+                                <div class="col-md-5 text-end my-auto"><label for="venCredito">Vencimiento del credito</label></div>
                                 <div class="col-md-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="fechaElaboracion" readonly
-                                               value="10/06/2025">
-                                        <button type="button" class="btn" id="btnCalendario"
-                                                title="Cambiar fecha">📅</button>
-                                    </div>
+                                    <select name="plazo" id="venCredito" class="form-select">
+                                        <option value="0">Hoy</option>
+                                        <option value="15">a 15 dias</option>
+                                        <option value="30">a 30 dias</option>
+                                        <option value="60">a 60 dias</option>
+                                        <option value="90">a 90 dias</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5 total py-3 ps-5">
-                            <h3 class="mb-4">Total a pagar: </h3>$ 15000
+                            <strong>Total general: </strong><br>
+                            <span id="total-general">$0</span>
+                            <input type="hidden" name="montoCredito" id="input-total-general">
                         </div>
                     </div>
                     <div class="justify-content-center d-flex">
                         <button type="button" class="btn cancelar ms-auto">Cancelar</button>
+                        <input name="accion" value="guardar" type="hidden">
                         <button type="submit" class="btn guardar me-auto ms-2">Guardar</button>
                     </div>
                 </form>
@@ -190,26 +125,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
     crossorigin="anonymous"></script>
-
-    <script>
-        function TraerClienteNombre() {
-            // 1. Obtener el valor seleccionado del ejercicio
-            var clienteId = document.getElementById("nomCliente").value;
-
-            // 2. Agregar o actualizar el parámetro fkIdEjercicio
-            params.set("idCliente", clienteId);
-            params.set("accion", "TraerCliente");
-
-            // 3. Redirigir al controlador con los parámetros
-            window.location.href = "<%= contextPath%>/CreditoController?" + params.toString();
-        }
-        function TraerClienteEmail() {
-            var clienteId = document.getElementById("Emaliente").value;
-
-            params.set("idCliente", clienteId);
-            params.set("accion", "TraerCliente");
-
-            window.location.href = "<%= contextPath%>/CreditoController?" + params.toString();
-        }
-    </script>
+    <script src="<%= request.getContextPath()%>/script/formCredito.js"></script>
 </html>

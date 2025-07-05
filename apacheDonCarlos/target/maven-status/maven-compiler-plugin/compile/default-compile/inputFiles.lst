@@ -1,5 +1,6 @@
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\FiltroSesion.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\ClienteController.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\CreditoDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\ValidarUsuario.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Usuario.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\UsuarioController.java
@@ -11,6 +12,9 @@ C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Pagos.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\ClienteDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\UsuarioDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CerrarSesion.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Credito.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\PagosController.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\ProductoDao.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CreditoController.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Cliente.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Config\Conexion.java
