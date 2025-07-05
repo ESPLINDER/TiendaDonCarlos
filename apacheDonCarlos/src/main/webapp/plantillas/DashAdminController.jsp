@@ -14,7 +14,7 @@
         <a href="<%= request.getContextPath()%>/CerrarSesion">
             <span class="names">Cerrar Sesión</span>
         </a>
-        <a href="#">
+        <a href="<%= contextPath %>/ClienteController?menu=Clientes&accion=Listar">
             <i class="bi bi-plus"></i>
             <span class="names">Cliente</span>
         </a>
@@ -57,7 +57,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<%= contextPath %>/ClienteController?menu=Clientes&accion=Listar">
                 <i class="bi bi-people"></i>
                 <span class="names">clientes</span>
             </a>
