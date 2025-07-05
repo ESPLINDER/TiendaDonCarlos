@@ -24,8 +24,4 @@
         <servlet-name>PagosController</servlet-name>
         <url-pattern>/PagosController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ClienteController</servlet-name>
-        <url-pattern>/ClienteController</url-pattern>
-    </servlet-mapping>
 </web-app>
