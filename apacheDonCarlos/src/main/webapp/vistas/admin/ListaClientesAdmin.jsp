@@ -3,12 +3,9 @@
 <%@page import="Modelo.Cliente"%>
 <%
     String contextPath = request.getContextPath();
-%>
-<%
     List<Cliente> listaClientes = (List<Cliente>) request.getAttribute("lista_cli");
     Cliente clienteEditar = (Cliente) request.getAttribute("mostrar_cliente");
     Cliente clienteEncontrado = (Cliente) request.getAttribute("cliente_encontrado");
-
     if (clienteEditar == null) {
         clienteEditar = new Cliente();
     }
@@ -18,14 +15,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-        <link rel="Stylesheet" href="<%= contextPath %>/Estilos/contenido.css">
-        <link rel="stylesheet" href="<%= contextPath %>/Estilos/navbarEstilo.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="<%= contextPath %>/Estilos/contenido.css">
+    <link rel="stylesheet" href="<%= contextPath %>/Estilos/navbarEstilo.css">
 </head>
 <body>
-    <%-- Sidebar / Navbar --%>
+
+    <%-- Sidebar/Navbar --%>
     <%@ include file="../../plantillas/DashAdminController.jsp" %>
 
     <div class="container my-5">
@@ -51,7 +49,7 @@
                     <div class="col-md-4">
                         <label class="form-label">ID Cliente</label>
                         <input type="number" class="form-control" name="idCliente" value="<%= clienteEditar.getIdCliente() %>"
-                               <%= (clienteEditar.getIdCliente() != 0) ? "readonly" : "" %> required/>
+                        <%= (clienteEditar.getIdCliente() != 0) ? "readonly" : "" %> required/>
                     </div>
 
                     <div class="col-md-4">
@@ -142,7 +140,6 @@
                                 <th>Email</th>
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
-                                <th>Categoría</th>
                                 <th>Límite Crédito</th>
                                 <th>Acciones</th>
                             </tr>
@@ -158,12 +155,16 @@
                                     <td><%= c.getEmaCliente() %></td>
                                     <td><%= c.getDomCliente() %></td>
                                     <td><%= c.getTelCliente() %></td>
-                                    <td><%= c.getCatCredito() %></td>
                                     <td><%= c.getLimCredito() %></td>
                                     <td>
-                                        <a href="ClienteController?menu=Clientes&accion=Editar&idCliente=<%= c.getIdCliente() %>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="ClienteController?menu=Clientes&accion=Eliminar&idCliente=<%= c.getIdCliente() %>" class="btn btn-sm btn-danger">Eliminar</a>
-                                        <a href="ClienteController?menu=Clientes&accion=Consultar&idCliente=<%= c.getIdCliente() %>" class="btn btn-sm btn-info">Historial</a>
+                                        <a href="ClienteController?menu=Clientes&accion=Editar&idCliente=<%= c.getIdCliente() %>"
+                                           class="btn btn-sm btn-warning">Editar</a>
+                                        <a href="ClienteController?menu=Clientes&accion=Eliminar&idCliente=<%= c.getIdCliente() %>"
+                                           class="btn btn-sm btn-danger">Eliminar</a>
+                                        <button type="button" class="btn btn-sm btn-info"
+                                                onclick="mostrarCategoria('<%= c.getCatCredito() %>')">
+                                            Historial
+                                        </button>
                                     </td>
                                 </tr>
                             <% }
@@ -177,5 +178,33 @@
         </div>
     </div>
 
+    <!-- Modal para mostrar categoría -->
+    <div class="modal fade" id="modalHistorial" tabindex="-1" aria-labelledby="modalHistorialLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="modalHistorialLabel">Categoría Crediticia- Ultima actualizacion crediticia</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p id="categoriaTexto"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function mostrarCategoria(categoria) {
+        document.getElementById("categoriaTexto").innerText = "La categoría crediticia actual es: " + categoria;
+        var myModal = new bootstrap.Modal(document.getElementById('modalHistorial'));
+        myModal.show();
+      }
+    </script>
 </body>
 </html>
+
