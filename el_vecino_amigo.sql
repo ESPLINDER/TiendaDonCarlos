@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2025 a las 21:29:13
+-- Tiempo de generación: 06-07-2025 a las 18:47:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -77,16 +77,17 @@ CREATE TABLE `credito` (
   `fk_idUsuario` int(12) NOT NULL,
   `montoCredito` int(8) NOT NULL,
   `emiCredito` date NOT NULL,
-  `venCredito` date NOT NULL
+  `venCredito` date NOT NULL,
+  `pagoCredito` enum('Sin pagar','Pago parcial','Pagado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `credito`
 --
 
-INSERT INTO `credito` (`idCredito`, `fk_idCliente`, `fk_idUsuario`, `montoCredito`, `emiCredito`, `venCredito`) VALUES
-('1', 1, 4321, 100000, '2025-07-03', '2025-08-03'),
-('2', 2, 4321, 200000, '2025-07-03', '2025-08-03');
+INSERT INTO `credito` (`idCredito`, `fk_idCliente`, `fk_idUsuario`, `montoCredito`, `emiCredito`, `venCredito`, `pagoCredito`) VALUES
+('FC000001', 1, 1, 100000, '2025-07-05', '2025-07-19', 'Sin pagar'),
+('FC00002', 1, 1, 10000, '2025-07-05', '2025-07-20', 'Sin pagar');
 
 -- --------------------------------------------------------
 
@@ -102,6 +103,14 @@ CREATE TABLE `detalle_credito` (
   `totalPrecio` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_credito`
+--
+
+INSERT INTO `detalle_credito` (`idDetCredito`, `fk_idProducto`, `fk_idCredito`, `cantidad`, `totalPrecio`) VALUES
+(2, 16, 'FC00002', 2, 4000),
+(3, 19, 'FC00002', 2, 6000);
+
 -- --------------------------------------------------------
 
 --
@@ -112,17 +121,9 @@ CREATE TABLE `pagos` (
   `idPago` int(8) NOT NULL,
   `fk_idCredito` varchar(8) NOT NULL,
   `montoPago` int(8) NOT NULL,
-  `tipoPago` enum('Parcial','Total') NOT NULL,
+  `tipPago` enum('Parcial','Total') NOT NULL,
   `fechaPago` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `pagos`
---
-
-INSERT INTO `pagos` (`idPago`, `fk_idCredito`, `montoPago`, `tipoPago`, `fechaPago`) VALUES
-(1, '1', 90000, 'Total', '2025-07-03'),
-(2, '1', 50000, 'Parcial', '2025-07-02');
 
 -- --------------------------------------------------------
 
@@ -135,6 +136,42 @@ CREATE TABLE `producto` (
   `nomProducto` varchar(40) NOT NULL,
   `valProducto` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idProducto`, `nomProducto`, `valProducto`) VALUES
+(1, 'Pan tajado', 3500),
+(2, 'Leche entera', 4200),
+(3, 'Arroz x500g', 2800),
+(4, 'Azúcar x500g', 2700),
+(5, 'Sal refinada', 1500),
+(6, 'Huevos x6', 5000),
+(7, 'Café molido x125g', 4500),
+(8, 'Chocolate en pastillas', 3200),
+(9, 'Aceite vegetal x500ml', 6300),
+(10, 'Pasta espagueti', 2300),
+(11, 'Fríjoles x500g', 3700),
+(12, 'Lentejas x500g', 3600),
+(13, 'Atún en lata', 5800),
+(14, 'Galletas surtidas', 2500),
+(15, 'Gaseosa 600ml', 2800),
+(16, 'Agua embotellada 600ml', 2000),
+(17, 'Jugo en caja', 2200),
+(18, 'Jabón de ropa barra', 1800),
+(19, 'Detergente x250g', 3000),
+(20, 'Papel higiénico x2', 4200),
+(21, 'Desodorante', 5800),
+(22, 'Champú sachet', 1500),
+(23, 'Avena en polvo', 3100),
+(24, 'Harina de maíz', 3500),
+(25, 'Mayonesa pequeña', 2600),
+(26, 'Salsa de tomate', 2900),
+(27, 'Cubitos de caldo', 1200),
+(28, 'Chocorramo', 2200),
+(29, 'Arequipe pequeño', 2400),
+(30, 'Velas pequeñas x2', 1000);
 
 -- --------------------------------------------------------
 
@@ -156,10 +193,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `emaUsuario`, `passUsuario`, `nomUsuario`, `apeUsuario`, `rolUsuario`) VALUES
-(987, 'Paola@gmail.com', '123', 'Paola', 'Martinez', 'Empleado'),
-(1234, 'administrador@gmail.com', '123', 'luisa', 'medina', 'Administrador'),
-(4321, 'empleado@gmail.com', '123', 'santiago', 'castro', 'Empleado'),
-(54321, 'Andres@gmail.com', '123', 'Andres', 'Mena', 'Administrador');
+(1, 'administrador@gmail.com', '123', 'administrador', 'usuario', 'Administrador'),
+(2, 'empleado@gmail.com', '123', 'empleado', 'usuario', 'Empleado');
 
 --
 -- Índices para tablas volcadas
@@ -211,10 +246,22 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `detalle_credito`
+--
+ALTER TABLE `detalle_credito`
+  MODIFY `idDetCredito` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `idPago` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPago` int(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `idProducto` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Restricciones para tablas volcadas
