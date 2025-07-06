@@ -46,9 +46,9 @@
                             <td><%= c.getEmiCredito() %></td>
                             <td><%= c.getVenCredito() %></td>
                             <td><%= c.getPagoCredito() %></td>
-                            <td><button class="boton boton-editar"><a href="<%= contextPath %>/">Editar</a></button>
-                                <button class="boton boton-eliminar"><a href="<%= contextPath %>/">Eliminar</a></button>
-                                <button class="boton boton-pagar"><a href="<%= contextPath %>/">Registrar pago</a></button></td>
+                            <td><button class="boton boton-pagar"><a href="<%= contextPath %>/ANDRES SE ENCARGA DE ESTO">Registrar pago</a></button>
+                                <button class="boton boton-editar"><a href="<%= contextPath %>/CreditoController?accion=Editar&idCredito=<%=c.getIdCredito()%>">Editar</a></button>
+                                <button class="boton boton-eliminar"><a href="<%= contextPath %>/CreditoController?accion=Eliminar&idCredito=<%=c.getIdCredito()%>">Eliminar</a></button></td>
                         </tr>
                         <%
                             }
