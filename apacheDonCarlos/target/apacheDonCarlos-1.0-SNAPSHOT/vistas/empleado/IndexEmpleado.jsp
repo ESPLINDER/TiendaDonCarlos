@@ -35,10 +35,10 @@
                     <span class="names">Credito</span>
                 </a>
                 <div class="right">
-                    <a href="#" class="d-flex align-items-center">
-                        <i class="bi bi-people"></i>
-                        <span class="names">Clientes</span>
-                    </a>
+                  <a href="<%= contextPath %>/Vistas/Empleado/ClientesEmpleado.jsp" class="d-flex align-items-center">
+                    <i class="bi bi-people"></i>
+                    <span class="names">Clientes</span>
+                 </a>
                 </div>
                 <img src="recursos/empleado.jpg" alt="usuario" class="user">
                 <span class="names">Empleado</span>
@@ -66,10 +66,10 @@
                 </li>
                 <li>
                 <body>
-                    <a href="#">
-                        <i class="bi bi-people"></i>
-                        <span class="names">clientes</span>
-                    </a>
+                  <a href="<%= contextPath %>/Vistas/Empleado/ClientesEmpleado.jsp" class="d-flex align-items-center">
+                   <i class="bi bi-people"></i>
+                     <span class="names">Clientes</span>
+                 </a>
                     </li>
                 <li>
                     <a href="#">

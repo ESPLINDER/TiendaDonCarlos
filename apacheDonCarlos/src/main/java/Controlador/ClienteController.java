@@ -3,12 +3,12 @@ package Controlador;
 import Modelo.Cliente;
 import Modelo.ClienteDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,17 +25,7 @@ public class ClienteController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ClienteController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ClienteController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.getWriter().println("Servlet ClienteController");
     }
 
     @Override
@@ -48,30 +38,28 @@ public class ClienteController extends HttpServlet {
         if (menu != null && menu.equals("Clientes")) {
             switch (accion) {
                 case "Listar":
-                    List listaClientes = cli_dao.listar();
-                    request.setAttribute("lista_cli", listaClientes);
-                    request.getRequestDispatcher("vistas/admin/ListaClientesAdmin.jsp").forward(request, response);
+                    listarClientes(request, response);
                     break;
                 case "Agregar":
-                    this.AgregarCliente(request, response);
+                    agregarCliente(request, response);
                     break;
                 case "Editar":
-                    this.EditarCliente(request, response);
+                    editarCliente(request, response);
                     break;
                 case "Actualizar":
-                    this.ActualizarCliente(request, response);
+                    actualizarCliente(request, response);
                     break;
                 case "Eliminar":
-                    this.EliminarCliente(request, response);
+                    eliminarCliente(request, response);
                     break;
                 case "Consultar":
-                    this.ConsultarHistorial(request, response);
+                    consultarHistorial(request, response);
                     break;
                 case "Buscar":
-                    this.BuscarCliente(request, response);
+                    buscarCliente(request, response);
                     break;
                 default:
-                    request.getRequestDispatcher("vistas/admin/IndexAdmin.jsp").forward(request, response);
+                    response.sendRedirect("vistas/admin/IndexAdmin.jsp");
                     break;
             }
         } else {
@@ -90,10 +78,31 @@ public class ClienteController extends HttpServlet {
         return "Controlador para gestión de clientes";
     }
 
-    // Métodos para gestión de clientes
-    protected void AgregarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void listarClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Cliente> listaClientes = cli_dao.listar();
+        request.setAttribute("lista_cli", listaClientes);
+
+        HttpSession session = request.getSession();
+        String mensaje = (String) session.getAttribute("mensaje");
+        String error = (String) session.getAttribute("error");
+
+        if (mensaje != null) {
+            request.setAttribute("mensaje", mensaje);
+            session.removeAttribute("mensaje");
+        }
+
+        if (error != null) {
+            request.setAttribute("error", error);
+            session.removeAttribute("error");
+        }
+
+        request.getRequestDispatcher("vistas/admin/ListaClientesAdmin.jsp").forward(request, response);
+    }
+
+    private void agregarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+
         try {
-            String idCliente = request.getParameter("idCliente");
             String tipDocumento = request.getParameter("tipDocumento");
             String nomCliente = request.getParameter("nomCliente");
             String apeCliente = request.getParameter("apeCliente");
@@ -103,15 +112,6 @@ public class ClienteController extends HttpServlet {
             String catCredito = request.getParameter("catCredito");
             String limCredito = request.getParameter("limCredito");
 
-            // Validar que no exista el cliente
-            if (cli_dao.existeCliente(Integer.parseInt(idCliente))) {
-                request.setAttribute("error", "Ya existe un cliente con ese documento");
-                request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
-                return;
-            }
-
-            // Asignar valores al objeto cliente
-            cli.setIdCliente(Integer.parseInt(idCliente));
             cli.setTipoDocumento(tipDocumento);
             cli.setNomCliente(nomCliente);
             cli.setApeCliente(apeCliente);
@@ -123,30 +123,31 @@ public class ClienteController extends HttpServlet {
 
             int resultado = cli_dao.Agregar(cli);
             if (resultado > 0) {
-                request.setAttribute("mensaje", "Cliente agregado exitosamente");
+                session.setAttribute("mensaje", "Cliente agregado exitosamente");
             } else {
-                request.setAttribute("error", "Error al agregar el cliente");
+                session.setAttribute("error", "Error al agregar el cliente");
             }
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
-        } catch (ServletException | IOException | NumberFormatException e) {
-            request.setAttribute("error", "Error en el registro: " + e.getMessage());
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
+        } catch (Exception e) {
+            session.setAttribute("error", "Error en el registro: " + e.getMessage());
         }
+
+        response.sendRedirect("ClienteController?menu=Clientes&accion=Listar");
     }
 
-    protected void EditarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void editarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             doc = Integer.parseInt(request.getParameter("idCliente"));
             Cliente c = cli_dao.ListarId(doc);
             request.setAttribute("mostrar_cliente", c);
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
         } catch (NumberFormatException e) {
-            request.setAttribute("error", "Error al cargar los datos del cliente");
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Error al cargar los datos del cliente");
         }
+        listarClientes(request, response);
     }
 
-    protected void ActualizarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void actualizarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
         try {
             String idCliente = request.getParameter("idCliente");
             String tipDocumento = request.getParameter("tipDocumento");
@@ -170,63 +171,64 @@ public class ClienteController extends HttpServlet {
 
             int resultado = cli_dao.Actualizar(cli);
             if (resultado > 0) {
-                request.setAttribute("mensaje", "Cliente actualizado exitosamente");
+                session.setAttribute("mensaje", "Cliente actualizado exitosamente");
             } else {
-                request.setAttribute("error", "Error al actualizar el cliente");
+                session.setAttribute("error", "Error al actualizar el cliente");
             }
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
-        } catch (ServletException | IOException | NumberFormatException e) {
-            request.setAttribute("error", "Error al actualizar: " + e.getMessage());
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
+        } catch (Exception e) {
+            session.setAttribute("error", "Error al actualizar: " + e.getMessage());
         }
+
+        response.sendRedirect("ClienteController?menu=Clientes&accion=Listar");
     }
 
-    protected void EliminarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void eliminarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
         try {
             doc = Integer.parseInt(request.getParameter("idCliente"));
             int resultado = cli_dao.Eliminar(doc);
             if (resultado > 0) {
-                request.setAttribute("mensaje", "Cliente eliminado exitosamente");
+                session.setAttribute("mensaje", "Cliente eliminado exitosamente");
             } else {
-                request.setAttribute("error", "Error al eliminar el cliente");
+                session.setAttribute("error", "Error al eliminar el cliente");
             }
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
-        } catch (ServletException | IOException | NumberFormatException e) {
-            request.setAttribute("error", "Error al eliminar: " + e.getMessage());
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
+        } catch (Exception e) {
+            session.setAttribute("error", "Error al eliminar: " + e.getMessage());
         }
+        response.sendRedirect("ClienteController?menu=Clientes&accion=Listar");
     }
 
-    protected void ConsultarHistorial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void consultarHistorial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idCliente = Integer.parseInt(request.getParameter("idCliente"));
             Cliente cliente = cli_dao.ListarId(idCliente);
             List<Object[]> historial = cli_dao.obtenerHistorialCrediticio(idCliente);
-            
+
             request.setAttribute("cliente", cliente);
             request.setAttribute("historial", historial);
             request.getRequestDispatcher("vistas/admin/HistorialClienteAdmin.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            request.setAttribute("error", "Error al consultar historial: " + e.getMessage());
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Error al consultar historial: " + e.getMessage());
+            response.sendRedirect("ClienteController?menu=Clientes&accion=Listar");
         }
     }
 
-    protected void BuscarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void buscarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
         try {
             int idCliente = Integer.parseInt(request.getParameter("idCliente"));
             Cliente cliente = cli_dao.BuscarPorDocumento(idCliente);
-            
+
             if (cliente.getIdCliente() != 0) {
                 request.setAttribute("cliente_encontrado", cliente);
-                request.setAttribute("mensaje", "Cliente encontrado");
+                session.setAttribute("mensaje", "Cliente encontrado");
             } else {
-                request.setAttribute("error", "Cliente no encontrado");
+                session.setAttribute("error", "Cliente no encontrado");
             }
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Error en la búsqueda: " + e.getMessage());
-            request.getRequestDispatcher("ClienteController?menu=Clientes&accion=Listar").forward(request, response);
+        } catch (Exception e) {
+            session.setAttribute("error", "Error en la búsqueda: " + e.getMessage());
         }
+        listarClientes(request, response);
     }
 }

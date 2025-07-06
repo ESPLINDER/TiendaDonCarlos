@@ -159,7 +159,7 @@
                                     <td>
                                         <a href="ClienteController?menu=Clientes&accion=Editar&idCliente=<%= c.getIdCliente() %>"
                                            class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="ClienteController?menu=Clientes&accion=Eliminar&idCliente=<%= c.getIdCliente() %>"
+                                        <a href="#" onclick="confirmarEliminar(<%= c.getIdCliente() %>)" 
                                            class="btn btn-sm btn-danger">Eliminar</a>
                                         <button type="button" class="btn btn-sm btn-info"
                                                 onclick="mostrarCategoria('<%= c.getCatCredito() %>')">
@@ -205,6 +205,49 @@
         myModal.show();
       }
     </script>
+    <!-- Agrega este CDN de SweetAlert2 antes del cierre de </body> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Mostrar mensaje de éxito
+  <% if (request.getAttribute("mensaje") != null) { %>
+  Swal.fire({
+    icon: 'success',
+    title: 'Éxito',
+    text: '<%= request.getAttribute("mensaje") %>',
+    confirmButtonColor: '#3085d6'
+  });
+  <% } %>
+
+  // Mostrar mensaje de error
+  <% if (request.getAttribute("error") != null) { %>
+  Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: '<%= request.getAttribute("error") %>',
+    confirmButtonColor: '#d33'
+  });
+  <% } %>
+
+  // Confirmar eliminación
+  function confirmarEliminar(idCliente) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Esta acción no se puede deshacer.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirigir a la URL de eliminar
+        window.location.href = 'ClienteController?menu=Clientes&accion=Eliminar&idCliente=' + idCliente;
+      }
+    });
+  }
+</script>
 </body>
 </html>
 
