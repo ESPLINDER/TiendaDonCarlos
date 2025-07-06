@@ -19,7 +19,8 @@ public class CreditoDao {
     ResultSet rs;
 
     public List<Credito> listar() {
-        String sql = "SELECT * FROM credito";
+        String sql = "SELECT idCredito, fk_idCliente, fk_idUsuario, montoCredito, emiCredito, venCredito, pagoCredito, clientes.nomCliente, usuarios.nomUsuario"
+                + " FROM credito INNER JOIN clientes on credito.fk_idCliente = clientes.idCliente INNER JOIN usuarios on credito.fk_idUsuario = usuarios.idUsuario";
         List<Credito> lista = new ArrayList<>();
         try {
             conn = cn.Conexion();
@@ -33,6 +34,9 @@ public class CreditoDao {
                 cre.setMontoCredito(rs.getInt(4));
                 cre.setEmiCredito(rs.getDate(5).toLocalDate());
                 cre.setVenCredito(rs.getDate(6).toLocalDate());
+                cre.setPagoCredito(rs.getString(7));
+                cre.setCliente(rs.getString(8));
+                cre.setUsuario(rs.getString(9));
                 lista.add(cre);
             }
         } catch (ClassNotFoundException | SQLException e) {

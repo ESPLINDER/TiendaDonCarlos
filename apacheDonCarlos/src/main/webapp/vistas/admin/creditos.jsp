@@ -28,6 +28,7 @@
                             <th>Valor de la factura</th>
                             <th>Fecha de emision</th>
                             <th>Vencimiento</th>
+                            <th>Estado del pago</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -39,20 +40,22 @@
                         %>
                         <tr>
                             <td><%= c.getIdCredito() %></td>
-                            <td><%= c.getFk_idUsuario() %></td>
-                            <td><%= c.getFk_idCliente() %></td>
+                            <td><%= c.getUsuario() %></td>
+                            <td><%= c.getCliente() %></td>
                             <td><%= c.getMontoCredito() %></td>
                             <td><%= c.getEmiCredito() %></td>
                             <td><%= c.getVenCredito() %></td>
-                            <td><button class="boton boton-editar"><a href="<%= contextPath %>/UsuarioController?menu=Usuarios&accion=Editar&idUsuario=<%= c.getIdCredito()%>">Editar</a></button>
-                                <button class="boton boton-eliminar"><a href="<%= contextPath %>/UsuarioController?menu=Usuarios&accion=Eliminar&idUsuario=<%= c.getIdCredito()%>">Eliminar</button></td>
+                            <td><%= c.getPagoCredito() %></td>
+                            <td><button class="boton boton-editar"><a href="<%= contextPath %>/">Editar</a></button>
+                                <button class="boton boton-eliminar"><a href="<%= contextPath %>/">Eliminar</a></button>
+                                <button class="boton boton-pagar"><a href="<%= contextPath %>/">Registrar pago</a></button></td>
                         </tr>
                         <%
                             }
                         } else {
                         %>
                         <tr>
-                            <td colspan="2">No hay usuarios registrados</td>
+                            <td colspan="2">No hay creditos registrados</td>
                         </tr>
                         <%
                             }
