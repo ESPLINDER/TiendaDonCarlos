@@ -9,16 +9,19 @@ public class Detalle_Credito {
     private String fk_idCredito;
     private int cantidad;
     private int totalPrecio;
+    
+    private String nomProducto;
 
     public Detalle_Credito() {
     }
 
-    public Detalle_Credito(int idDetCredito, int fk_idProducto, String fk_idCredito, int cantidad, int totalPrecio) {
+    public Detalle_Credito(int idDetCredito, int fk_idProducto, String fk_idCredito, int cantidad, int totalPrecio, String nomProducto) {
         this.idDetCredito = idDetCredito;
         this.fk_idProducto = fk_idProducto;
         this.fk_idCredito = fk_idCredito;
         this.cantidad = cantidad;
         this.totalPrecio = totalPrecio;
+        this.nomProducto = nomProducto;
     }
 
     public int getIdDetCredito() {
@@ -41,6 +44,10 @@ public class Detalle_Credito {
         return totalPrecio;
     }
 
+    public String getNomProducto() {
+        return nomProducto;
+    }
+
     public void setIdDetCredito(int idDetCredito) {
         this.idDetCredito = idDetCredito;
     }
@@ -61,8 +68,12 @@ public class Detalle_Credito {
         this.totalPrecio = totalPrecio;
     }
 
+    public void setNomProducto(String nomProducto) {
+        this.nomProducto = nomProducto;
+    }
+
     @Override
     public String toString() {
-        return "Detalle_Credito{" + "idDetCredito=" + idDetCredito + ", fk_idProducto=" + fk_idProducto + ", fk_idCredito=" + fk_idCredito + ", cantidad=" + cantidad + ", totalPrecio=" + totalPrecio + '}';
+        return "Detalle_Credito{" + "idDetCredito=" + idDetCredito + ", fk_idProducto=" + fk_idProducto + ", fk_idCredito=" + fk_idCredito + ", cantidad=" + cantidad + ", totalPrecio=" + totalPrecio + ", nomProducto=" + nomProducto + '}';
     }
 }

@@ -39,6 +39,15 @@ public class CreditoController extends HttpServlet {
         String accion = request.getParameter("accion");
 
         switch (accion) {
+            case "Editar":
+                this.Editar(request, response);
+                break;
+            case "Actualizar":
+                this.Actualizar(request, response);
+                break;
+            case "Eliminar":
+                this.Delete(request, response);
+                break;
             case "Listar":
                     List lista_cre = cre_dao.listar();
                     request.setAttribute("lista_cre", lista_cre);
@@ -51,6 +60,81 @@ public class CreditoController extends HttpServlet {
                 this.Guardar(request, response);
                 break;
         }
+    }
+    
+    protected void Delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String idCredito = request.getParameter("idCredito");
+            detCreDao.Delete(idCredito);
+            cre_dao.Delete(idCredito);
+
+            request.getRequestDispatcher("CreditoController?accion=Listar").forward(request, response);
+        } catch (ServletException | IOException | NumberFormatException e) {
+            System.out.println("Error al eliminar credito");
+        }
+    }
+    
+    protected void Editar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        String idCredito = request.getParameter("idCredito");
+        List listaClientes = cli_dao.listar();
+        List listaProductos = pro_dao.listar();
+        credito = cre_dao.BuscarId(idCredito);
+        
+        List listaDetalleCredito = detCreDao.listar(idCredito);
+        
+        session.setAttribute("credito", credito);
+        session.setAttribute("listaDetalleCredito", listaDetalleCredito);
+        session.setAttribute("listaClientes", listaClientes);
+        session.setAttribute("listaProductos", listaProductos);
+        request.getRequestDispatcher("vistas/admin/editarCredito.jsp").forward(request, response);
+    }
+    
+    protected void Actualizar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        Credito credito = (Credito) session.getAttribute("credito");
+        
+        String MontoCredito = request.getParameter("montoCredito");
+        int montoCredito = Integer.parseInt(MontoCredito);
+        
+        String plazoCredito = request.getParameter("plazo");
+        int plazo = Integer.parseInt(plazoCredito);
+        LocalDate vencimiento = credito.getEmiCredito().plusDays(plazo);
+
+        String fk_idCliente = request.getParameter("fk_idCliente");
+
+        credito.setFk_idCliente(Integer.parseInt(fk_idCliente));
+        credito.setMontoCredito(montoCredito);
+        credito.setVenCredito(vencimiento);
+
+        cre_dao.Actualizar(credito);
+
+        String[] idsProducto = request.getParameterValues("fk_idProducto");
+        String[] cantidades = request.getParameterValues("cantidad");
+        String[] totales = request.getParameterValues("totalPrecio");
+        String[] IdDetalleCredito = request.getParameterValues("idDetalleCredito");
+
+        for (int i = 0; i < idsProducto.length; i++) {
+            int idProd = Integer.parseInt(idsProducto[i]);
+            int cantidad = Integer.parseInt(cantidades[i]);
+            int total = Integer.parseInt(totales[i]);
+            int idDetalleCredito = (IdDetalleCredito[i] != null && !IdDetalleCredito[i].isEmpty()) ? Integer.parseInt(IdDetalleCredito[i]) : 0;
+            
+            detCre.setFk_idProducto(idProd);
+            detCre.setFk_idCredito(credito.getIdCredito());
+            detCre.setCantidad(cantidad);
+            detCre.setTotalPrecio(total);
+            if (idDetalleCredito == 0) {
+                detCreDao.Guardar(detCre);
+            } else {
+                detCre.setIdDetCredito(idDetalleCredito);
+                detCreDao.Actualizar(detCre);
+            }
+        }
+        request.getRequestDispatcher("CreditoController?accion=Listar").forward(request, response);
     }
 
     protected void PrepararCredito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,7 +199,7 @@ public class CreditoController extends HttpServlet {
             
             detCreDao.Guardar(detCre);
         }
-        request.getRequestDispatcher("vistas/admin/creditos.jsp").forward(request, response);
+        request.getRequestDispatcher("CreditoController?accion=Listar").forward(request, response);
     }
 
     @Override
