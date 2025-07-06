@@ -39,6 +39,11 @@ public class CreditoController extends HttpServlet {
         String accion = request.getParameter("accion");
 
         switch (accion) {
+            case "Listar":
+                    List lista_cre = cre_dao.listar();
+                    request.setAttribute("lista_cre", lista_cre);
+                    request.getRequestDispatcher("vistas/admin/creditos.jsp").forward(request, response);
+                break;
             case "PrepararCredito":
                 this.PrepararCredito(request, response);
                 break;
@@ -110,7 +115,7 @@ public class CreditoController extends HttpServlet {
             
             detCreDao.Guardar(detCre);
         }
-        request.getRequestDispatcher("vistas/admin/IndexAdmin.jsp").forward(request, response);
+        request.getRequestDispatcher("vistas/admin/creditos.jsp").forward(request, response);
     }
 
     @Override

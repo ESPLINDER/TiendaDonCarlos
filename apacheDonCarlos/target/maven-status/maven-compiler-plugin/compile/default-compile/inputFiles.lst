@@ -10,6 +10,7 @@ C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Producto.ja
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\com\mycompany\apachedoncarlos\resources\JakartaEE10Resource.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Pagos.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\ClienteDao.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Detalle_CreditoDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\UsuarioDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CerrarSesion.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Credito.java
@@ -17,4 +18,5 @@ C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\PagosC
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\ProductoDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CreditoController.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Cliente.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Detalle_Credito.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Config\Conexion.java

@@ -46,7 +46,7 @@
             </a>
         </li>
         <li>
-            <a href="<%= contextPath %>/CreditoController?accion=PrepararCredito">
+            <a href="<%= contextPath %>/CreditoController?accion=Listar">
                 <i class="bi bi-coin"></i>
                 <span class="names">Creditos</span>
             </a>

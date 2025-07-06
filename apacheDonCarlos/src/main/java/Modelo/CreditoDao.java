@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author William
@@ -16,6 +18,29 @@ public class CreditoDao {
     PreparedStatement ps;
     ResultSet rs;
 
+    public List<Credito> listar() {
+        String sql = "SELECT * FROM credito";
+        List<Credito> lista = new ArrayList<>();
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Credito cre = new Credito();
+                cre.setIdCredito(rs.getString(1));
+                cre.setFk_idCliente(rs.getInt(2));
+                cre.setFk_idUsuario(rs.getInt(3));
+                cre.setMontoCredito(rs.getInt(4));
+                cre.setEmiCredito(rs.getDate(5).toLocalDate());
+                cre.setVenCredito(rs.getDate(6).toLocalDate());
+                lista.add(cre);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error al generar lista de creditos: " + e.getMessage());
+        }
+        return lista;
+    }
+    
     // Obtener el último ID de crédito
     public String idUltimoCredito() {
         String ultimoId = "";
