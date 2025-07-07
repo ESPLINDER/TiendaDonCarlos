@@ -52,21 +52,9 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class="bi bi-basket"></i>
-                <span class="names">Productos</span>
-            </a>
-        </li>
-        <li>
             <a href="<%= contextPath %>/ClienteController?menu=Clientes&accion=Listar">
                 <i class="bi bi-people"></i>
                 <span class="names">clientes</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bi bi-exclamation-circle"></i>
-                <span class="names">reportes</span>
             </a>
         </li>
     </ul>
