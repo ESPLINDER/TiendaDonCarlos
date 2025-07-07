@@ -124,6 +124,8 @@
                         <p>ID: <%= clienteEncontrado.getIdCliente() %></p>
                         <p>Nombre: <%= clienteEncontrado.getNomCliente() %> <%= clienteEncontrado.getApeCliente() %></p>
                         <p>Email: <%= clienteEncontrado.getEmaCliente() %></p>
+                        <p>Direccion: <%= clienteEncontrado.getDomCliente() %></p>
+                        <p>Telefono: <%= clienteEncontrado.getTelCliente() %></p>
                     </div>
                 <% } %>
 
