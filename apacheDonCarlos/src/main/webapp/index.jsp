@@ -13,11 +13,6 @@
     <div class="login-container">
         <!-- Panel del formulario (izquierda) -->
         <div class="form-panel">
-            <!-- Botón de regreso -->
-            <a href="javascript:history.back()" class="back-button" title="Regresar">
-                <i class="bi bi-arrow-left"></i>
-            </a>
-
             <div class="logo-section">
                 <div class="logo-icon">
                     <i class="bi bi-shop"></i>
