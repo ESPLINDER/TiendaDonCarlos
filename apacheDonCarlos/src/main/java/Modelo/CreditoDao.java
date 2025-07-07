@@ -26,7 +26,7 @@ public class CreditoDao {
             ps = conn.prepareStatement(sql);
             ps.setString(1, idCredito);
             r = ps.executeUpdate();
-            
+
             if (r > 0) {
                 System.out.println("Credito eliminado correctamente");
             } else {
@@ -36,7 +36,7 @@ public class CreditoDao {
             System.out.println("Error al eliminar rutina: " + e.getMessage());
         }
     }
-    
+
     public Credito BuscarId(String id) {
         Credito cre = new Credito();
         String sql = "SELECT idCredito, fk_idCliente, fk_idUsuario, montoCredito, emiCredito, venCredito, pagoCredito, clientes.nomCliente, usuarios.nomUsuario"
@@ -64,19 +64,20 @@ public class CreditoDao {
         }
         return cre;
     }
-    public void Actualizar(Credito credito){
+
+    public void Actualizar(Credito credito) {
         String sql = "UPDATE credito SET fk_idCliente = ?, fk_idUsuario = ?, montoCredito = ?, venCredito = ? WHERE idCredito = ?";
         try {
             conn = cn.Conexion();
             ps = conn.prepareStatement(sql);
-            
+
             ps.setInt(1, credito.getFk_idCliente());
             ps.setInt(2, credito.getFk_idUsuario());
             ps.setInt(3, credito.getMontoCredito());
             ps.setDate(4, java.sql.Date.valueOf(credito.getVenCredito()));
             ps.setString(5, credito.getIdCredito());
             r = ps.executeUpdate();
-            
+
             if (r > 0) {
                 System.out.println("credito actualizado correctamente");
             } else {
@@ -86,7 +87,28 @@ public class CreditoDao {
             System.out.println("Error al actualizar usuario: " + e.getMessage());
         }
     }
-    
+
+    public void ActualizarPago(String estado, String idCredito) {
+        String sql = "UPDATE credito SET pagoCredito = ? WHERE idCredito = ?";
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            System.out.println("Estado a guardar: " + estado);
+
+            ps.setString(1, estado);
+            ps.setString(2, idCredito);
+            r = ps.executeUpdate();
+
+            if (r > 0) {
+                System.out.println("credito actualizado correctamente");
+            } else {
+                System.out.println("No se pudo actualizar el credito");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error al actualizar credito: " + e.getMessage());
+        }
+    }
+
     public List<Credito> listar() {
         String sql = "SELECT idCredito, fk_idCliente, fk_idUsuario, montoCredito, emiCredito, venCredito, pagoCredito, clientes.nomCliente, usuarios.nomUsuario"
                 + " FROM credito INNER JOIN clientes on credito.fk_idCliente = clientes.idCliente INNER JOIN usuarios on credito.fk_idUsuario = usuarios.idUsuario";
@@ -113,7 +135,34 @@ public class CreditoDao {
         }
         return lista;
     }
-    
+
+    public List<Credito> listarCreditos() {
+        String sql = "SELECT idCredito, fk_idCliente, fk_idUsuario, montoCredito, emiCredito, venCredito, pagoCredito, clientes.nomCliente, usuarios.nomUsuario"
+                + " FROM credito INNER JOIN clientes on credito.fk_idCliente = clientes.idCliente INNER JOIN usuarios on credito.fk_idUsuario = usuarios.idUsuario WHERE pagoCredito != 'Pagado'";
+        List<Credito> lista = new ArrayList<>();
+        try {
+            conn = cn.Conexion();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Credito cre = new Credito();
+                cre.setIdCredito(rs.getString(1));
+                cre.setFk_idCliente(rs.getInt(2));
+                cre.setFk_idUsuario(rs.getInt(3));
+                cre.setMontoCredito(rs.getInt(4));
+                cre.setEmiCredito(rs.getDate(5).toLocalDate());
+                cre.setVenCredito(rs.getDate(6).toLocalDate());
+                cre.setPagoCredito(rs.getString(7));
+                cre.setCliente(rs.getString(8));
+                cre.setUsuario(rs.getString(9));
+                lista.add(cre);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error al generar lista de creditos: " + e.getMessage());
+        }
+        return lista;
+    }
+
     // Obtener el último ID de crédito
     public String idUltimoCredito() {
         String ultimoId = "";
@@ -133,8 +182,8 @@ public class CreditoDao {
 
         return ultimoId;
     }
-    
-    public void Guardar(Credito credito){
+
+    public void Guardar(Credito credito) {
         String sql = "INSERT INTO credito(idCredito, fk_idCliente, fk_idUsuario, montoCredito, emiCredito, venCredito) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             conn = cn.Conexion();
@@ -146,11 +195,27 @@ public class CreditoDao {
             ps.setInt(4, credito.getMontoCredito());
             ps.setDate(5, java.sql.Date.valueOf(credito.getEmiCredito()));
             ps.setDate(6, java.sql.Date.valueOf(credito.getVenCredito()));
-            
-            System.out.println("Consulta guardar credito: "+ps);
+
+            System.out.println("Consulta guardar credito: " + ps);
             ps.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error al guardar credito: " + e.getMessage());
         }
     }
+
+    public int obtenerMontoCredito(String idCredito) {
+        int monto = 0;
+        String sql = "SELECT montoCredito FROM credito WHERE idCredito = ?";
+        try (Connection conn = cn.Conexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, idCredito);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                monto = rs.getInt("montoCredito");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return monto;
+    }
+
 }

@@ -12,6 +12,7 @@ C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Pagos.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\ClienteDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Detalle_CreditoDao.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\UsuarioDao.java
+C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CalcularMontoRestante.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\CerrarSesion.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Modelo\Credito.java
 C:\xampp\htdocs\TiendaDonCarlos\apacheDonCarlos\src\main\java\Controlador\PagosController.java

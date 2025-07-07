@@ -1,5 +1,7 @@
 package Controlador;
 
+import Modelo.Credito;
+import Modelo.CreditoDao;
 import Modelo.Pagos;
 import Modelo.PagosDao;
 import Modelo.Usuario;
@@ -20,7 +22,9 @@ import java.util.List;
 public class PagosController extends HttpServlet {
 
     Pagos pago = new Pagos();
+    Credito credito = new Credito();
     PagosDao pagoDao = new PagosDao();
+    CreditoDao cre_dao = new CreditoDao();
     int doc;
 
     @Override
@@ -68,8 +72,10 @@ public class PagosController extends HttpServlet {
                 case "Actualizar":
                     this.ActualizarPago(request, response);
                     break;
-                case "Eliminar":
-
+                case "ListarCreditos":
+                    List lista_cre = cre_dao.listarCreditos();
+                    request.setAttribute("listaCreditos", lista_cre);
+                    request.getRequestDispatcher("vistas/admin/formCrearPago.jsp").forward(request, response);
                     break;
             }
         }
@@ -78,19 +84,22 @@ public class PagosController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            int fkIdCredito = Integer.parseInt(request.getParameter("fkIdCredito"));
+            String pagoCredito = request.getParameter("pagoCredito");
+            String fkIdCredito = request.getParameter("fkIdCredito");
             int montoPago = Integer.parseInt(request.getParameter("montoPago"));
             String tipoPago = request.getParameter("tipoPago");
             LocalDate fechaPago = LocalDate.now();
-
+            
+            credito.setPagoCredito(pagoCredito);
             pago.setFkIdCredito(fkIdCredito);
             pago.setMontoPago(montoPago);
             pago.setTipoPago(tipoPago);
             pago.setFechaPago(fechaPago);
+            
             pagoDao.Agregar(pago);
-
+            cre_dao.ActualizarPago(tipoPago, fkIdCredito);
             System.out.println("Ejecucion de metodo Agregar");
-            request.getRequestDispatcher("PagosController?menu=Pagos&accion=Actualizar").forward(request, response);
+            request.getRequestDispatcher("PagosController?menu=Pagos&accion=Listar").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

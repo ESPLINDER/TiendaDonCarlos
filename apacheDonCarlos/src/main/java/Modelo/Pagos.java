@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Pagos {
 
     int idPago;
-    int fkIdCredito;
+    String fkIdCredito;
     int montoPago;
     String tipoPago;
     LocalDate fechaPago;
@@ -17,7 +17,7 @@ public class Pagos {
     public Pagos() {
     }
 
-    public Pagos(int idPago, int fkIdCredito, int montoPago, String tipoPago, LocalDate fechaPago) {
+    public Pagos(int idPago, String fkIdCredito, int montoPago, String tipoPago, LocalDate fechaPago) {
         this.idPago = idPago;
         this.fkIdCredito = fkIdCredito;
         this.montoPago = montoPago;
@@ -29,7 +29,7 @@ public class Pagos {
         return idPago;
     }
 
-    public int getFkIdCredito() {
+    public String getFkIdCredito() {
         return fkIdCredito;
     }
 
@@ -49,7 +49,7 @@ public class Pagos {
         this.idPago = idPago;
     }
 
-    public void setFkIdCredito(int fkIdCredito) {
+    public void setFkIdCredito(String fkIdCredito) {
         this.fkIdCredito = fkIdCredito;
     }
 

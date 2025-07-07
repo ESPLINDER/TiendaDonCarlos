@@ -49,7 +49,7 @@
         <%--Aqui empieza el contenido--%>
         <div class="contenido">
             <h1>Lista de Pagos</h1>
-            <button class="boton-agregar"><a class="nav-link active" href="<%= contextPath%>/vistas/admin/formCrearPago.jsp">Crear Pago</a></button>
+            <button class="boton-agregar"><a class="nav-link active" href="<%= contextPath%>/PagosController?menu=Pagos&accion=ListarCreditos">Crear Pago</a></button>
             <div class="tabla">
                 <table>
                     <thead>

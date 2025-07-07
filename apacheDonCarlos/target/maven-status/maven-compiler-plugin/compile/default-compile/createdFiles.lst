@@ -18,5 +18,6 @@ Controlador\PagosController.class
 Modelo\Credito.class
 Modelo\Producto.class
 Modelo\Pagos.class
+Controlador\CalcularMontoRestante.class
 Modelo\Detalle_Credito.class
 Modelo\ProductoDao.class
