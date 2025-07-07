@@ -45,7 +45,7 @@ public class ValidarUsuario extends HttpServlet {
                 
                 request.setAttribute("usuario", usu); //vamos a la pagina donde se autentica el usuario
                 if (usu.getRolUsuario().equals("Administrador")) {
-                    request.getRequestDispatcher("vistas/admin/IndexAdmin.jsp").forward(request, response);
+                    request.getRequestDispatcher("vistas/admin/ListaUsuariosAdmin.jsp").forward(request, response);
                 } else {
                     request.getRequestDispatcher("vistas/empleado/IndexEmpleado.jsp").forward(request, response);
                 }
