@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-07-2025 a las 18:47:18
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 07-07-2025 a las 14:04:20
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,7 @@ CREATE TABLE `clientes` (
   `telCliente` int(12) NOT NULL,
   `catCredito` enum('A','B','C') NOT NULL DEFAULT 'C',
   `limCredito` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -79,7 +79,7 @@ CREATE TABLE `credito` (
   `emiCredito` date NOT NULL,
   `venCredito` date NOT NULL,
   `pagoCredito` enum('Sin pagar','Pago parcial','Pagado') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `credito`
@@ -101,7 +101,7 @@ CREATE TABLE `detalle_credito` (
   `fk_idCredito` varchar(8) NOT NULL,
   `cantidad` int(6) NOT NULL,
   `totalPrecio` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `detalle_credito`
@@ -119,11 +119,11 @@ INSERT INTO `detalle_credito` (`idDetCredito`, `fk_idProducto`, `fk_idCredito`, 
 
 CREATE TABLE `pagos` (
   `idPago` int(8) NOT NULL,
-  `fk_idCredito` varchar(8) NOT NULL,
+  `fkIdCredito` varchar(8) NOT NULL,
   `montoPago` int(8) NOT NULL,
-  `tipPago` enum('Parcial','Total') NOT NULL,
+  `tipoPago` enum('Parcial','Total') NOT NULL,
   `fechaPago` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE `producto` (
   `idProducto` int(4) NOT NULL,
   `nomProducto` varchar(40) NOT NULL,
   `valProducto` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `producto`
@@ -186,7 +186,7 @@ CREATE TABLE `usuarios` (
   `nomUsuario` varchar(30) NOT NULL,
   `apeUsuario` varchar(30) NOT NULL,
   `rolUsuario` enum('Administrador','Empleado') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -227,7 +227,7 @@ ALTER TABLE `detalle_credito`
 --
 ALTER TABLE `pagos`
   ADD PRIMARY KEY (`idPago`),
-  ADD KEY `fk_idCredito` (`fk_idCredito`);
+  ADD KEY `fk_idCredito` (`fkIdCredito`);
 
 --
 -- Indices de la tabla `producto`
@@ -255,7 +255,7 @@ ALTER TABLE `detalle_credito`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `idPago` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPago` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1029;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -285,7 +285,7 @@ ALTER TABLE `detalle_credito`
 -- Filtros para la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`fk_idCredito`) REFERENCES `credito` (`idCredito`);
+  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`fkIdCredito`) REFERENCES `credito` (`idCredito`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
