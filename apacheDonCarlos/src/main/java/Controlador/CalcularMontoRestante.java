@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Rojas
  */
+@WebServlet("/CalcularMontoRestante")
 public class CalcularMontoRestante extends HttpServlet {
 
     PagosDao pagoDao = new PagosDao();

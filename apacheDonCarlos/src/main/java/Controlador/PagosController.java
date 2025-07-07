@@ -8,6 +8,7 @@ import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.util.List;
  *
  * @author Rojas
  */
+@WebServlet("/PagosController")
 public class PagosController extends HttpServlet {
 
     Pagos pago = new Pagos();
@@ -37,6 +39,9 @@ public class PagosController extends HttpServlet {
 
         if (menu.equals("Pagos")) {
             switch (accion) {
+                case "Agregar":
+                    this.agregarPago(request, response);
+                    break;
                 case "Listar":
                     List listaPagos = pagoDao.listar();
                     request.setAttribute("lista_Pagos", listaPagos);
@@ -83,6 +88,10 @@ public class PagosController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+    }
+    
+    protected void agregarPago(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String pagoCredito = request.getParameter("pagoCredito");
             String fkIdCredito = request.getParameter("fkIdCredito");

@@ -106,7 +106,7 @@
                             </div>
                             <div class="modal-body">
 
-                                <form id="edicionPago" action="PagosController">
+                                <form id="edicionPago" action="<%= contextPath%>/PagosController">
                                     <input type="hidden" name="menu" value="Pagos">
                                     <input type="hidden" name="accion" value="Actualizar">
                                     <div class="form-group">

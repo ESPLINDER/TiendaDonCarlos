@@ -26,8 +26,9 @@
                         <h1 class="card-title mb-0 text-center">Crear Nuevo Pago</h1>
                     </div>
                     <div class="card-body">
-                        <form id="pagosForm" action="<%= contextPath%>/PagosController" method="POST">
-
+                        <form id="pagosForm" action="<%= contextPath%>/PagosController">
+                            <input type="hidden" name="menu" value="Pagos">
+                            <input type="hidden" name="accion" value="Agregar">
                             <div class="form-group">
                                 <label for="fkIdCredito">Credito a Pagar</label>
                                 <select name="fkIdCredito" class="form-control" id="fkIdCredito" required>
@@ -80,31 +81,31 @@
 
                     if (idCredito !== "") {
                         fetch(`${contextPath}/CalcularMontoRestante?idCredito=encodeURIComponent(idCredito)`);
-                                                .then(res => res.json())
-                                                .then(data => {
-                                                    const restante = data.restante;
+                        .then(res => res.json())
+                                .then(data => {
+                                    const restante = data.restante;
 
-                                                    montoInput.max = restante;
-                                                    montoInput.placeholder = `Máximo permitido: ${restante}`;
+                                    montoInput.max = restante;
+                                    montoInput.placeholder = `Máximo permitido: ${restante}`;
 
-                                                    // Asignar estado al input hidden
-                                                    if (restante <= 0) {
-                                                        pagoCreditoInput.value = "Pagado";
-                                                    } else {
-                                                        pagoCreditoInput.value = "Pago parcial";
-                                                    }
-                                                })
-                                                .catch(err => {
-                                                    console.error("Error al consultar el monto restante:", err);
-                                                    pagoCreditoInput.value = "Sin pagar"; // fallback
-                                                });
+                                    // Asignar estado al input hidden
+                                    if (restante <= 0) {
+                                        pagoCreditoInput.value = "Pagado";
                                     } else {
-                                        montoInput.removeAttribute("max");
-                                        montoInput.placeholder = "";
-                                        pagoCreditoInput.value = "Sin pagar";
+                                        pagoCreditoInput.value = "Pago parcial";
                                     }
+                                })
+                                .catch(err => {
+                                    console.error("Error al consultar el monto restante:", err);
+                                    pagoCreditoInput.value = "Sin pagar"; // fallback
                                 });
-                            });
+                    } else {
+                        montoInput.removeAttribute("max");
+                        montoInput.placeholder = "";
+                        pagoCreditoInput.value = "Sin pagar";
+                    }
+                });
+            });
         </script>
     </body>
 </html>
