@@ -97,7 +97,7 @@ public class PagosController extends HttpServlet {
             pago.setFechaPago(fechaPago);
             
             pagoDao.Agregar(pago);
-            cre_dao.ActualizarPago(tipoPago, fkIdCredito);
+            cre_dao.ActualizarPago(pagoCredito, fkIdCredito);
             System.out.println("Ejecucion de metodo Agregar");
             request.getRequestDispatcher("PagosController?menu=Pagos&accion=Listar").forward(request, response);
 

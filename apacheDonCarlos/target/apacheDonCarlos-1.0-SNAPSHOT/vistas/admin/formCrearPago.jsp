@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <form id="pagosForm" action="<%= contextPath%>/PagosController" method="POST">
-                            <input name="pagoCredito" id="pagoCredito" type="hidden" class="form-control">
+
                             <div class="form-group">
                                 <label for="fkIdCredito">Credito a Pagar</label>
                                 <select name="fkIdCredito" class="form-control" id="fkIdCredito" required>
@@ -56,6 +56,7 @@
                                 <label for="montoPago">Monto del Pago</label>
                                 <input name="montoPago" id="montoPago" type="number" class="form-control" min="1" required>
                             </div>
+                            <input name="pagoCredito" id="pagoCredito" type="hidden" value="Sin pagar">
 
                             <div class="card-title mb-0 text-center">
                                 <button type="submit" class="btn btn-primary me-2 mt-2" >Crear Pago</button>
@@ -70,32 +71,40 @@
             document.addEventListener("DOMContentLoaded", function () {
                 const creditoSelect = document.getElementById("fkIdCredito");
                 const montoInput = document.getElementById("montoPago");
+                const pagoCreditoInput = document.getElementById("pagoCredito");
 
-                // Obtenemos el contextPath directamente desde JSP
                 const contextPath = '<%= request.getContextPath()%>';
 
                 creditoSelect.addEventListener("change", function () {
                     const idCredito = this.value;
 
                     if (idCredito !== "") {
-                        // Aquí usamos el valor seleccionado dinámicamente
-                        fetch(`<%= contextPath%>/CalcularMontoRestante?idCredito=${idCredito}`)
+                        fetch(`${contextPath}/CalcularMontoRestante?idCredito=encodeURIComponent(idCredito)`);
                                                 .then(res => res.json())
                                                 .then(data => {
-                                                    montoInput.max = data.restante;
-                                                    montoInput.placeholder = `Máximo permitido: ${data.restante}`;
+                                                    const restante = data.restante;
+
+                                                    montoInput.max = restante;
+                                                    montoInput.placeholder = `Máximo permitido: ${restante}`;
+
+                                                    // Asignar estado al input hidden
+                                                    if (restante <= 0) {
+                                                        pagoCreditoInput.value = "Pagado";
+                                                    } else {
+                                                        pagoCreditoInput.value = "Pago parcial";
+                                                    }
                                                 })
                                                 .catch(err => {
                                                     console.error("Error al consultar el monto restante:", err);
+                                                    pagoCreditoInput.value = "Sin pagar"; // fallback
                                                 });
                                     } else {
                                         montoInput.removeAttribute("max");
                                         montoInput.placeholder = "";
+                                        pagoCreditoInput.value = "Sin pagar";
                                     }
                                 });
                             });
         </script>
-
-
     </body>
 </html>
