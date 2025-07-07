@@ -47,21 +47,9 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class="bi bi-basket"></i>
-                <span class="names">Productos</span>
-            </a>
-        </li>
-        <li>
             <a href="ClienteController?menu=Clientes&accion=Listar">
                 <i class="bi bi-person"></i>
                 <span class="names">Clientes</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bi bi-exclamation-circle"></i>
-                <span class="names">Reportes</span>
             </a>
         </li>
     </ul>
